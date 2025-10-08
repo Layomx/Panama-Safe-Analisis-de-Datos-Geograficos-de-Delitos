@@ -3,17 +3,16 @@ import pandas as pd
 import plotly.express as px
 
 # Agregare algunas de prueba (Elvis Adames)
-# Agregare algunas de prueba (Elvis Adames)
 def grafico_tendencia_temporal(df):
     """Genera un gráfico de tendencia temporal de los delitos."""
     
-    # Crear columna periodo (año-mes)
+    # columna periodo (año-mes)
     df['periodo'] = df['año'].astype(str) + '-' + df['mes'].astype(str).str.zfill(2)
     
     # Agrupacion por periodo y sexo
     df_temp = df.groupby(['periodo', 'sexo', 'año', 'mes']).size().reset_index(name='cantidad')
     
-    # Ordenar por año y mes
+    # Ordenamiento por año y mes
     df_temp = df_temp.sort_values(['año', 'mes'])
     
     # Mapeo de colores
