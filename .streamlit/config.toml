@@ -1,18 +1,51 @@
-[theme]
-primaryColor = "#005293"
-backgroundColor = "#FFFFFF"
-
-secondaryBackgroundColor = "#E8EDF3"
-
-textColor = "#1A2332"
-
-font = "sans serif"
-
 [server]
+# Configuración del servidor
 headless = true
 port = 8501
 enableCORS = false
+enableXsrfProtection = true
+
+# IMPORTANTE: Configuración de WebSocket
+enableWebsocketCompression = true
 maxUploadSize = 200
+maxMessageSize = 200
+
+# Timeouts para evitar errores de conexión
+serverAddress = "localhost"
+baseUrlPath = ""
+
+# Manejo de errores de WebSocket
+runOnSave = true
+allowRunOnSave = true
 
 [browser]
+# Configuración del navegador
 gatherUsageStats = false
+serverAddress = "localhost"
+serverPort = 8501
+
+[runner]
+# Configuración del runner
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+
+# CRÍTICO: Manejo rápido de reruns
+fastReruns = true
+enforceSerializableSessionState = false
+
+[client]
+# Configuración del cliente
+caching = true
+displayEnabled = true
+showErrorDetails = false
+toolbarMode = "minimal"
+
+[logger]
+# Reducir logs de WebSocket
+level = "error"
+messageFormat = "%(asctime)s %(message)s"
+
+[deprecation]
+showfileUploaderEncoding = false
+showImageFormat = false
