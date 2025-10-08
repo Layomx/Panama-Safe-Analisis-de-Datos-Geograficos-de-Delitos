@@ -13,7 +13,7 @@ wc.web_config()
 
 # Titulo de la aplicacion / pagina web
 st.title("Panama Safe - Análisis Geográfico de Delitos")
-st.markdown("# Panel interactivo sobre homicidios y feminicidios en Panamá")
+st.markdown("### Panel interactivo sobre homicidios y feminicidios en Panamá")
 st.markdown("---")
 
 # ========== CARGA DE DATOS ==========
