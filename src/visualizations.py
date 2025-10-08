@@ -41,3 +41,53 @@ def grafico_tendencia_temporal(df):
     )
     
     return fig
+
+def grafico_proporcion_sexo(df):
+    """Crea gráfico de proporción por sexo"""
+    df_sexo = df['sexo'].value_counts().reset_index()
+    df_sexo.columns = ['sexo', 'cantidad']
+    
+    fig = px.pie(
+        df_sexo,
+        values='cantidad',
+        names='sexo',
+        title='⚖️ Proporción de Víctimas por Sexo',
+        color='sexo',
+        color_discrete_map={'Masculino': '#1f77b4', 'Femenino': '#e377c2'},
+        hole=0.4
+    )
+    
+    fig.update_traces(textposition='inside', textinfo='percent+label')
+    fig.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        height=400
+    )
+    
+    return fig
+
+def grafico_arma_barras(df):
+    """Crea gráfico de barras alternativo para armas"""
+    df_arma = df['tipo_de_arma_utilizada'].value_counts().head(10).reset_index()
+    df_arma.columns = ['arma', 'cantidad']
+    df_arma = df_arma.sort_values('cantidad', ascending=True)
+    
+    fig = px.bar(
+        df_arma,
+        x='cantidad',
+        y='arma',
+        orientation='h',
+        title='Tipos de Armas Utilizadas',
+        labels={'cantidad': 'Número de Casos', 'arma': 'Tipo de Arma'},
+        color='cantidad',
+        color_continuous_scale='Oranges'
+    )
+    
+    fig.update_layout(
+        showlegend=False,
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        height=400
+    )
+    
+    return fig

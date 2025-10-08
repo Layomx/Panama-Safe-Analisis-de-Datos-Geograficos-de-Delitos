@@ -150,6 +150,29 @@ if df_filtrado.empty:
     st.stop()
 
 # ========== MÉTRICAS PRINCIPALES ==========
+st.markdown("""
+    <style>
+    div[data-testid="stMetric"] {
+        background-color: #1E1E2F;
+        padding: 15px 10px;
+        border-radius: 15px;
+        border: 1px solid #2E2E3F;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    div[data-testid="stMetricValue"] {
+        color: ##FFFFFF !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        color: #CCCCCC !important;
+        font-weight: bold;
+    }
+    div[data-testid="stMetricDelta"] {
+        color: #77FF77 !important;
+        font-weight: bold;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown("## Indicadores Clave")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -290,7 +313,7 @@ with tab2:
     
 # ========== TAB 3: ANÁLISIS COMPARATIVO ==========
 with tab3:
-    st.markdown("comparador de provincias")
+    st.markdown("Comparador de provincias")
     
     provincias_comparar = st.multiselect(
         "Selecciona provincias para comparar (máximo 5):",
@@ -335,6 +358,12 @@ with tab4:
         )
         fig_edad.update_layout(height=500, xaxis_tickangle=-45)
         st.plotly_chart(fig_edad, use_container_width=True)
+        
+    st.markdown("---")
+    
+    if not df_filtrado.empty and 'tipo_de_arma_utilizada' in df_filtrado.columns:
+        fig_sexo = vz.grafico_arma_barras(df_filtrado)
+        st.plotly_chart(fig_sexo, use_container_width=True)
     
 # ========== TAB 5: DATOS CRUDOS ==========
 with tab5:
