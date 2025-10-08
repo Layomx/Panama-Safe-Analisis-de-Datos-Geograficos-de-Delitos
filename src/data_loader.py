@@ -5,7 +5,7 @@ import pandas as pd
 def load_data():
     """Carga los datos del archivo CSV y los devuelve como un DataFrame de pandas."""
     try:
-        crimenes = pd.read_csv("data/dataset_unificado_normalizado.csv") # Ruta del archivo CSV
+        crimenes = pd.read_csv("data/dataset_homicidios.csv") # Ruta del archivo CSV
         return crimenes
     except FileNotFoundError:
         st.error("Archivo CSV no encontrado. Por favor, verifica la ruta.")
