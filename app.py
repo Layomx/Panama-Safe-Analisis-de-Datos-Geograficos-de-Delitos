@@ -1,8 +1,14 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import src.web_config as wc
+import src.data_loader as dl
 
-df = pd.read_csv('data/dataset_unificado.csv')
+# Configuracion de la pagina web
+wc.web_config()
+
+# Carga de los datos
+df = dl.load_data()
 
 # Titulo de la aplicacion / pagina web
 st.title("Panama Safe - Análisis Geográfico de Delitos")
