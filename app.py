@@ -1,3 +1,28 @@
+import warnings
+import logging
+import sys
+
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', message='.*WebSocket.*')
+
+logging.getLogger('tornado.application').setLevel(logging.ERROR)
+logging.getLogger('tornado.general').setLevel(logging.ERROR)
+logging.getLogger('tornado.websocket').setLevel(logging.ERROR)
+
+class SuppressWebSocketErrors:
+    def __init__(self, stream):
+        self.stream = stream
+        
+    def write(self, message):
+        # Filtrar mensajes de WebSocket
+        if 'WebSocketClosedError' not in message and 'websocket.py' not in message:
+            self.stream.write(message)
+    
+    def flush(self):
+        self.stream.flush()
+
+sys.stderr = SuppressWebSocketErrors(sys.stderr)
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -22,7 +47,7 @@ st.markdown("---")
 df = dl.load_data()
 
 # Cargar GeoJSON
-@st.cache_data
+@st.cache_resource
 def load_geojson():
     with open('data/geojson/pa.geojson', 'r', encoding='utf-8') as f:
         return json.load(f)
@@ -200,7 +225,7 @@ with tab1:
     st.markdown("Mapa de calor interactivo")
     
     # Preparar datos para el mapa
-    df_mapa = df_filtrado.groupby(['provincia', 'año']).size().reset_index(name='casos')
+    df_mapa = df.groupby(['provincia', 'año']).size().reset_index(name='casos')
     #necsito ordenarlo pa evitar probelmas de años no consecutivos en el slider
     df_mapa = df_mapa.sort_values('año') 
     
@@ -235,7 +260,7 @@ with tab1:
     
     # Mapa de calor estático
     st.markdown("Intensidad de Casos por Provincia")
-    df_mapa_estatico = df_filtrado.groupby('provincia').size().reset_index(name='casos')
+    df_mapa_estatico = df.groupby('provincia').size().reset_index(name='casos')
     
     fig_mapa_estatico = px.choropleth(
         df_mapa_estatico,
