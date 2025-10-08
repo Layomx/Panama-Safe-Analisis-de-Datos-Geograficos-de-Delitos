@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.express as px
 
 # Agregare algunas de prueba (Elvis Adames)
-# Agregare algunas de prueba (Elvis Adames)
 def grafico_tendencia_temporal(df):
     """Genera un gráfico de tendencia temporal de los delitos."""
     
