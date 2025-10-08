@@ -3,13 +3,15 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import json
-import src.web_config as wc
+from src.web_config import PAGE_CONFIG, apply_custom_styles
 import src.data_loader as dl
 import src.visualizations as vz
 import src.utils as ut
 
 # ========== CONFIGURACIÓN DE LA PÁGINA ==========
-wc.web_config()
+st.set_page_config(**PAGE_CONFIG)
+
+apply_custom_styles()
 
 # Titulo de la aplicacion / pagina web
 st.title("Panama Safe - Análisis Geográfico de Delitos")
